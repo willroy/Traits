@@ -1,27 +1,32 @@
 local bump = require 'lib/bump'
+local world
+local player
+local platform
 
-local player = {
-  x = 460,
-  y = 460,
-  width = 40,
-  height = 40,
-  dir = "right",
-  acc = 15,
-  base_speed = 8,
-  img = nil,
-}
-
-local platform = {
-  x = 400,
-  y = 400,
-  width = 153,
-  height = 40,
-  
-  img = nil
-}
 function love.load()
-  player.img = love.graphics.newImage('assets/character/character.png')
+  world = bump.newWorld()
+  platform = {
+    x = 400,
+    y = 400,
+    width = 153,
+    height = 40,
+    img = nil
+  } 
+  player = {
+    x = 460,
+    y = 460,
+    w = 40,
+    h = 40,
+    dir = "right",
+    acc = 15,
+    base_speed = 8,
+    img = nil
+  }
+
+  player.img = love.graphics.newImage('assets/MC/character.png')
   platform.img = love.graphics.newImage('assets/platforms/platformgrass.png')
+  
+  world:add(player, player.x, player.y, player.w, player.h)
 end
 
 function love.update(dt)
@@ -33,13 +38,12 @@ function love.update(dt)
     player.x = player.x - player.base_speed
     player.dir = "left"
   end
-  
   if love.keyboard.isDown("up", "w") then
-    player.y = player.y + player.base_speed
+    player.y = player.y - player.base_speed
     player.dir = "up"
   end
   if love.keyboard.isDown("down", "s") then 
-    player.y = player.y - player.base_speed
+    player.y = player.y + player.base_speed
     player.dir = "down"
   end  
 end
