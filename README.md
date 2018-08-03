@@ -1,11 +1,9 @@
 # Traits
-A game that determines learning styles and traits based on info subtly gathered through individal gameplay.
+A game that determines learning styles and traits based on info gathered subtly through gameplay.
 
 Web Implementation:
-Can be done by using the port at https://github.com/TannerRogalsky/love.js. This can be used by (in debug folder) running:
-`python ../emscripten/tools/file_packager.py game.data --preload [path-to-game]@/ --js-output=game.js`
-Then use `python -m SimpleHTTPServer 8000` in the debug folder to access the game on localhost:8000.
-More detailed instructions and initial setup are on the page.
+Can be done by using the port at https://github.com/TannerRogalsky/love.js. This can be used to access the game on localhost.
+Instructions and initial setup are on the page.
 
 Software and Libaries:
 Uses Love2D game engine with lua.
