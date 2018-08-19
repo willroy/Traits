@@ -1,3 +1,4 @@
 #!/bin/bash
 rm traits.love
 zip -r -x Create_run_file.bash @ traits.love .
+love traits.love

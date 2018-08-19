@@ -1,20 +1,29 @@
 local bump = require 'lib/bump'
+
 local world
 local player
-local platform 
+local blocks = {}
 local Levelone = Game:addState('Levelone')
 
+local function DeepPrint (e)
+    if type(e) == "table" then
+        for k,v in pairs(e) do
+            print(k)
+            DeepPrint(v)       
+        end
+    else
+        print(e)
+    end
+end
+
+local function addBlock(x, y)
+    local block = {x=x,y=y}
+    blocks[#blocks + 1] = block
+    world:add(block,x,y,153,40)
+end
 
 function Levelone:enteredState()
-    platform = {
-        x = 300,
-        y = 300,
-        width = 153,
-        height = 40,
-        w = 153,
-        h = 40,
-        img = nil
-    } 
+    love.mouse.setVisible(false)
     player = {
         x = 460,
         y = 460,
@@ -26,10 +35,12 @@ function Levelone:enteredState()
     }
     world = bump.newWorld()
     player.img = love.graphics.newImage('assets/MC/character.png')
-    platform.img = love.graphics.newImage('assets/platforms/platformgrass.png')
+    blockimg = love.graphics.newImage('assets/platforms/platformgrass.png')
+    addBlock(300, 300)
+    addBlock(400, 400)
+    addBlock(300, 100)
     
     world:add(player, player.x, player.y, player.w, player.h)
-    world:add(platform, platform.x, platform.y, platform.w, platform.h)
 end
 
 function Levelone:update(dt)
@@ -53,7 +64,10 @@ end
 
 function Levelone:draw(dt)
     love.graphics.draw(player.img, player.x, player.y)
-    love.graphics.draw(platform.img, platform.x, platform.y)
+    for i=1, #blocks do
+        local b = blocks[i]
+        love.graphics.draw(blockimg, b.x, b.y)
+    end
 end
 
 function Levelone:keypressed(key)
