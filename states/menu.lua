@@ -1,7 +1,7 @@
 local Menu = Game:addState('Menu')
 
 function Menu:enteredState()
-    
+    love.window.setMode(1300, 1000)
 end
 
 function Menu:update(dt)
