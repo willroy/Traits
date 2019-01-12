@@ -19,7 +19,7 @@ function Menu:update(dt)
     end
     if hover then
         if love.mouse.isDown(1) then
-            self:gotoState('Levelone')
+            self:gotoState('Selection')
         end
     end
 end
