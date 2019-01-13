@@ -12,11 +12,7 @@ local function addBlock(x, y)
 end
 
 function Levelone:enteredState()
-  love.window.setMode(1300, 1000)
-  right_x = 1260
-  left_x = 0
-  top_y = 0
-  bot_y = 960
+
   player = {
     x = 460,
     y = 460,
@@ -40,10 +36,23 @@ function Levelone:enteredState()
     img_roof = nil
   }
 
-  button1 = {400, 500, 50, false, 0} 
-  button2 = {200, 500, 100, false, 0} 
+--  button1 = {400, 500, 50, false, 0} 
+  --button2 = {200, 500, 300, false, 0} 
 
-  house1.c_h = house1.c_h - (player.h) 
+  button1 = {
+    x = 400, 
+    y = 500, 
+    delay = 50, 
+    pressed = false, 
+    count = 0
+  } 
+  button2 = {
+    x = 200, 
+    y = 500, 
+    delay = 300, 
+    pressed = false, 
+    count = 0
+  } 
 
   player.img = love.graphics.newImage('assets/char/char_front.png')
   blockimg = love.graphics.newImage('assets/blocks/platformgrass.png')
@@ -55,8 +64,15 @@ function Levelone:enteredState()
   button_up = love.graphics.newImage('assets/misc/buttonup.png')
   button_down = love.graphics.newImage('assets/misc/buttondown.png')
 
+  house1.c_h = house1.c_h - (player.h) 
+
   love.mouse.setVisible(true)
   world = bump.newWorld()
+  love.window.setMode(1300, 1000)
+  right_x = 1260
+  left_x = 0
+  top_y = 0
+  bot_y = 960
 
   world:add(house1.img_body, house1.x, house1.y+house1.r_h, house1.c_w, house1.c_h)
   world:add(player, player.x, player.y, player.w, player.h)
@@ -82,8 +98,7 @@ function Levelone:update(dt)
     player.img = love.graphics.newImage('assets/char/char_front.png')
   end 
 
-  local newX, newY, cols, len = world:move(player, player.x, player.y)
-  player.x, player.y = newX, newY
+  local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
 end
 
 function Levelone:draw(dt)
@@ -118,30 +133,29 @@ function Levelone:draw(dt)
 end
 
 function Levelone:button(b)
-  print(b[5], "|", b[3])
-  if b[5] == b[3] then
-    b[4] = false 
+  if b.count == b.delay then
+    b.pressed = false 
   end
-  print(b[4])
-  if b[4] == true then
-    b[5] = b[5] + 1
-    love.graphics.draw(button_down, b[1], b[2])
-  elseif player.x > b[1]-23 and player.x < (b[1]+100)-23 and (player.y+player.h) > b[2] and (player.y+player.h) < b[2]+100 then
-    b[4] = true
-    b[5] = 0
-    love.graphics.draw(button_down, b[1], b[2]) 
+  if b.pressed == true then
+    b.count = b.count + 1
+    love.graphics.draw(button_down, b.x, b.y)
+  end
+  if player.x > b.x-23 and player.x < (b.x+100)-23 and (player.y+player.h) > b.y and (player.y+player.h) < b.y+100 then
+    b.pressed = true
+    b.count = 0
+    love.graphics.draw(button_down, b.x, b.y) 
+  elseif b.pressed == true then
+    b.count = b.count + 1
+    love.graphics.draw(button_down, b.x, b.y)
   else
-    b[5] = 0
-    love.graphics.draw(button_up, b[1], b[2])
+    b.count = 0
+    love.graphics.draw(button_up, b.x, b.y)
   end
 end
 
 function Levelone:keypressed(key)
   if key == "escape" then
     love.event.push("quit")
-  end
-  if key == "m" then
-    debug = true
   end
   if key == "x" then
     print("x: "..player.x)
