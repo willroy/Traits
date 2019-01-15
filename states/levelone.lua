@@ -36,35 +36,53 @@ function Levelone:enteredState()
     img_roof = nil
   }
 
---  button1 = {400, 500, 50, false, 0} 
-  --button2 = {200, 500, 300, false, 0} 
-
   button1 = {
     x = 400, 
     y = 500, 
-    delay = 50, 
+    delay = 300, 
     pressed = false, 
-    count = 0
+    count = 0,
+    id = 1
   } 
   button2 = {
     x = 200, 
     y = 500, 
     delay = 300, 
     pressed = false, 
-    count = 0
+    count = 0,
+    id = 2
+  } 
+  button3 = {
+    x = 400, 
+    y = 300, 
+    delay = 300, 
+    pressed = false, 
+    count = 0,
+    id = 3
+  } 
+  button4 = {
+    x = 200, 
+    y = 300, 
+    delay = 300, 
+    pressed = false, 
+    count = 0,
+    id = 4
   } 
 
-  player.img = love.graphics.newImage('assets/char/char_front.png')
-  blockimg = love.graphics.newImage('assets/blocks/platformgrass.png')
+  order = {}
+
+  player.img = love.graphics.newImage('assets/character/cf1.png')
   house1.img_body = love.graphics.newImage('assets/houses/house1/h1body.png')
   house1.img_roof = love.graphics.newImage('assets/houses/house1/h1roof.png')
   grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
   buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
   clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
-  button_up = love.graphics.newImage('assets/misc/buttonup.png')
-  button_down = love.graphics.newImage('assets/misc/buttondown.png')
+  button_up = love.graphics.newImage('assets/interactable/buttonup.png')
+  button_down = love.graphics.newImage('assets/interactable/buttondown.png')
+  lock = love.graphics.newImage('assets/houses/house1/lock.png')
 
   house1.c_h = house1.c_h - (player.h) 
+  count = 0
 
   love.mouse.setVisible(true)
   world = bump.newWorld()
@@ -83,19 +101,19 @@ function Levelone:update(dt)
   player.speed = 6
   if love.keyboard.isDown("right", "d") and player.x < right_x then
     player.x = player.x + player.speed 
-    player.img = love.graphics.newImage('assets/char/char_right.png')
+    player.img = love.graphics.newImage('assets/character/cr1.png')
   end
   if love.keyboard.isDown("left", "a") and player.x > left_x then
     player.x = player.x - player.speed 
-    player.img = love.graphics.newImage('assets/char/char_left.png')
+    player.img = love.graphics.newImage('assets/character/cl1.png')
   end
   if love.keyboard.isDown("up", "w") and player.y > top_y then
     player.y = player.y - player.speed 
-    player.img = love.graphics.newImage('assets/char/char_back.png')
+    player.img = love.graphics.newImage('assets/character/cb1.png')
   end
   if love.keyboard.isDown("down", "s") and player.y < bot_y then 
     player.y = player.y + player.speed 
-    player.img = love.graphics.newImage('assets/char/char_front.png')
+    player.img = love.graphics.newImage('assets/character/cf1.png')
   end 
 
   local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
@@ -119,10 +137,26 @@ function Levelone:draw(dt)
     end
   end 
 
+  if order[1] == 1 then
+    if order[2] == 4 then
+      if order[3] == 3 then
+        if order[4] == 2 then
+          open = true
+        end
+      end
+    end
+  end
+
   Levelone:button(button1)
   Levelone:button(button2)
+  Levelone:button(button3)
+  Levelone:button(button4)
 
   love.graphics.draw(house1.img_body, house1.x, house1.y + house1.r_h)
+  if open == true then
+  else
+    love.graphics.draw(lock, (house1.x+(house1.w/4)), house1.y+120 + house1.r_h)
+  end
   love.graphics.draw(player.img, player.x, player.y)
   love.graphics.draw(house1.img_roof, house1.x, house1.y)
 
@@ -135,13 +169,20 @@ end
 function Levelone:button(b)
   if b.count == b.delay then
     b.pressed = false 
+    order = {}
   end
   if b.pressed == true then
+  --  print(b.id)
     b.count = b.count + 1
     love.graphics.draw(button_down, b.x, b.y)
   end
   if player.x > b.x-23 and player.x < (b.x+100)-23 and (player.y+player.h) > b.y and (player.y+player.h) < b.y+100 then
     b.pressed = true
+    --table.insert(order, b.id)
+    if order[#order] == b.id then
+    else
+      order[#order+1] = b.id
+    end
     b.count = 0
     love.graphics.draw(button_down, b.x, b.y) 
   elseif b.pressed == true then
