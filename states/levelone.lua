@@ -24,45 +24,43 @@ function Levelone:enteredState()
     img = nil
   }
 
-  house1 = {
-    x = 703,
-    y = 200,
-    w = 294,
-    h = 248,
-    c_w = 300,
-    c_h = 248,
-    r_h = 72,
-    img_body = nil,
-    img_roof = nil
+  cave = {
+    x = 500,
+    y = 0,
+    w = 300,
+    h = 300,
+    c_w = 2000,
+    c_h = 160,
+    img = nil
   }
 
   button1 = {
-    x = 400, 
-    y = 500, 
+    x = 700, 
+    y = 800, 
     delay = 300, 
     pressed = false, 
     count = 0,
     id = 1
   } 
   button2 = {
-    x = 200, 
-    y = 500, 
+    x = 500, 
+    y = 800, 
     delay = 300, 
     pressed = false, 
     count = 0,
     id = 2
   } 
   button3 = {
-    x = 400, 
-    y = 300, 
+    x = 700, 
+    y = 600, 
     delay = 300, 
     pressed = false, 
     count = 0,
     id = 3
   } 
   button4 = {
-    x = 200, 
-    y = 300, 
+    x = 500, 
+    y = 600, 
     delay = 300, 
     pressed = false, 
     count = 0,
@@ -72,16 +70,14 @@ function Levelone:enteredState()
   order = {}
 
   player.img = love.graphics.newImage('assets/character/cf1.png')
-  house1.img_body = love.graphics.newImage('assets/houses/house1/h1body.png')
-  house1.img_roof = love.graphics.newImage('assets/houses/house1/h1roof.png')
+  cave.img = love.graphics.newImage('assets/tiles/cave.png')
   grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
+  background = love.graphics.newImage('assets/tiles/backing.png')
   buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
   clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
   button_up = love.graphics.newImage('assets/interactable/buttonup.png')
   button_down = love.graphics.newImage('assets/interactable/buttondown.png')
-  lock = love.graphics.newImage('assets/houses/house1/lock.png')
 
-  house1.c_h = house1.c_h - (player.h) 
   count = 0
 
   love.mouse.setVisible(true)
@@ -92,7 +88,7 @@ function Levelone:enteredState()
   top_y = 0
   bot_y = 960
 
-  world:add(house1.img_body, house1.x, house1.y+house1.r_h, house1.c_w, house1.c_h)
+  world:add(cave.img, cave.x-900, cave.y, cave.c_w, cave.c_h)
   world:add(player, player.x, player.y, player.w, player.h)
 end
 
@@ -116,17 +112,21 @@ function Levelone:update(dt)
     player.img = love.graphics.newImage('assets/character/cf1.png')
   end 
 
+  if player.x > cave.x+100 and player.x < cave.x+200 and player.y == 160 then
+    if open == true then
+      self:gotoState('Leveltwo')
+    end
+  end
+
   local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
 end
 
 function Levelone:draw(dt)
   tile_x = 0
-  tile_y = 0
+  tile_y = 300
   for i=138,0,-1 do
     if math.mod(i,9) == 0 or math.mod(i,4) == 0 then
       love.graphics.draw(grass_tile, tile_x, tile_y)
-      --elseif i == 10 or i == 30 or i == 26 or i == 126 or i == 69 then 
-      --love.graphics.draw(buttercup_tile, tile_x, tile_y)
     else
       love.graphics.draw(clover_tile, tile_x, tile_y)
     end
@@ -152,13 +152,16 @@ function Levelone:draw(dt)
   Levelone:button(button3)
   Levelone:button(button4)
 
-  love.graphics.draw(house1.img_body, house1.x, house1.y + house1.r_h)
   if open == true then
-  else
-    love.graphics.draw(lock, (house1.x+(house1.w/4)), house1.y+120 + house1.r_h)
+    cave.img = love.graphics.newImage('assets/tiles/caveopen.png')
   end
+
+  love.graphics.draw(cave.img, cave.x, cave.y)
+  love.graphics.draw(background, cave.x-300, cave.y)
+  love.graphics.draw(background, cave.x-600, cave.y)
+  love.graphics.draw(background, cave.x+300, cave.y)
+  love.graphics.draw(background, cave.x+600, cave.y)
   love.graphics.draw(player.img, player.x, player.y)
-  love.graphics.draw(house1.img_roof, house1.x, house1.y)
 
   for i=1, #blocks do
     local b = blocks[i]
@@ -172,13 +175,11 @@ function Levelone:button(b)
     order = {}
   end
   if b.pressed == true then
-  --  print(b.id)
     b.count = b.count + 1
     love.graphics.draw(button_down, b.x, b.y)
   end
   if player.x > b.x-23 and player.x < (b.x+100)-23 and (player.y+player.h) > b.y and (player.y+player.h) < b.y+100 then
     b.pressed = true
-    --table.insert(order, b.id)
     if order[#order] == b.id then
     else
       order[#order+1] = b.id
