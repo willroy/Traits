@@ -98,7 +98,7 @@ function Leveltwo:draw(dt)
   end 
   
   love.graphics.draw(house1.img_roof, house1.x, house1.y)
-  love.graphics.draw(house1.img_j gt, house1.x, house1.y)
+  love.graphics.draw(house1.img_body, house1.x, house1.y)
   love.graphics.draw(player.img, player.x, player.y)
   for i=1, #blocks do
     local b = blocks[i]
