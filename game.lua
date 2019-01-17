@@ -1,11 +1,10 @@
-Game = class('Game'):include(Stateful)
-
 require 'states/menu'
---require 'states/pause'
 require 'states/levelone'
+require 'states/leveltwo'
+require 'states/selection'
 
 function Game:initialize()
-  self:gotoState('Menu')
+    
 end
 
 function Game:exit()
