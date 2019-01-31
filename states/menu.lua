@@ -1,10 +1,4 @@
-local Menu = Game:addState('Menu')
-
-function Menu:enteredState()
-    love.window.setMode(1300, 1000)
-end
-
-function Menu:update(dt)
+function updatemenu(dt)
     x, y = love.mouse.getPosition()
     local hover = false
     
@@ -19,16 +13,17 @@ function Menu:update(dt)
     end
     if hover then
         if love.mouse.isDown(1) then
-            self:gotoState('Selection')
+            return "levelone"
         end
     end
+    return "menu"
 end
 
-function Menu:draw(dt)
+function drawmenu(dt)
     love.graphics.rectangle('fill', 300, 300, 200, 100)
 end
 
-function Menu:keypressed(key)
+function keypressedmenu(key)
     if key == "escape" then
         love.event.push("quit")
     end
