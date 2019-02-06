@@ -66,14 +66,14 @@ function enteredStatelvl1()
     
     order = {}
     
-    player.img = love.graphics.newImage('assets/character/cf1.png')
-    cave.img = love.graphics.newImage('assets/tiles/cave.png')
-    grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
-    background = love.graphics.newImage('assets/tiles/backing.png')
-    buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
-    clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
-    button_up = love.graphics.newImage('assets/interactable/buttonup.png')
-    button_down = love.graphics.newImage('assets/interactable/buttondown.png')
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
+    cave.img = love.graphics.newImage('assets/ENTRY/ENTRY_cave_closed.png')
+    grass_tile = love.graphics.newImage('assets/TILE/TILE_v2_leaves.png')
+    background = love.graphics.newImage('assets/TILE/TILE_backing.png')
+    buttercup_tile = love.graphics.newImage('assets/TILE/TILE_buttercup.png')
+    clover_tile = love.graphics.newImage('assets/TILE/TILE_clover.png')
+    button_up = love.graphics.newImage('assets/BUTTON/BUTTON_generalup.png')
+    button_down = love.graphics.newImage('assets/BUTTON/BUTTON_generaldown.png')
     
     count = 0
     
@@ -93,19 +93,19 @@ function updatelvl1(dt)
     player.speed = 6
     if love.keyboard.isDown("right", "d") and player.x < right_x then
         player.x = player.x + player.speed 
-        player.img = love.graphics.newImage('assets/character/cr1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_right.png')
     end
     if love.keyboard.isDown("left", "a") and player.x > left_x then
         player.x = player.x - player.speed 
-        player.img = love.graphics.newImage('assets/character/cl1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_left.png')
     end
     if love.keyboard.isDown("up", "w") and player.y > top_y then
         player.y = player.y - player.speed 
-        player.img = love.graphics.newImage('assets/character/cb1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_back.png')
     end
     if love.keyboard.isDown("down", "s") and player.y < bot_y then 
         player.y = player.y + player.speed 
-        player.img = love.graphics.newImage('assets/character/cf1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
     end 
     
     if player.x > cave.x+100 and player.x < cave.x+200 and player.y == 160 then
@@ -150,13 +150,8 @@ function drawlvl1(dt)
     button(button3)
     button(button4)
     
-    if order[1] == nil or order[2] == nil or order[3] == nil or order[4] == nil then
-    else
-      print(string.format("%d,%d,%d,%d", order[1], order[2], order[3], order[4]))
-    end
-
     if open == true then
-        cave.img = love.graphics.newImage('assets/tiles/caveopen.png')
+        cave.img = love.graphics.newImage('assets/ENTRY/ENTRY_cave_open.png')
     end
     
     love.graphics.draw(cave.img, cave.x, cave.y)

@@ -68,15 +68,15 @@ function enteredStatelvl2()
     
     order = {}
     
-    player.img = love.graphics.newImage('assets/character/cf1.png')
-    grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
-    background = love.graphics.newImage('assets/tiles/backing.png')
-    buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
-    clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
-    button_up = love.graphics.newImage('assets/interactable/buttonup.png')
-    button_down = love.graphics.newImage('assets/interactable/buttondown.png')
-    house1.img_body = love.graphics.newImage('assets/houses/house1/h1body.png')
-    house1.img_roof = love.graphics.newImage('assets/houses/house1/h1roof.png')
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
+    grass_tile = love.graphics.newImage('assets/TILE/TILE_v2_leaves.png')
+    background = love.graphics.newImage('assets/TILE/TILE_backing.png')
+    buttercup_tile = love.graphics.newImage('assets/TILE/TILE_buttercup.png')
+    clover_tile = love.graphics.newImage('assets/TILE/TILE_clover.png')
+    button_up = love.graphics.newImage('assets/BUTTON/BUTTON_generalup.png')
+    button_down = love.graphics.newImage('assets/BUTTON/BUTTON_generaldown.png')
+    house1.img_body = love.graphics.newImage('assets/ENTRY/ENTRY_house1_body.png')
+    house1.img_roof = love.graphics.newImage('assets/ENTRY/ENTRY_house1_roof.png')
     
     count = 0
     
@@ -97,19 +97,19 @@ function updatelvl2(dt)
     player.speed = 6
     if love.keyboard.isDown("right", "d") and player.x < right_x then
         player.x = player.x + player.speed 
-        player.img = love.graphics.newImage('assets/character/cr1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_right.png')
     end
     if love.keyboard.isDown("left", "a") and player.x > left_x then
         player.x = player.x - player.speed 
-        player.img = love.graphics.newImage('assets/character/cl1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_left.png')
     end
     if love.keyboard.isDown("up", "w") and player.y > top_y then
         player.y = player.y - player.speed 
-        player.img = love.graphics.newImage('assets/character/cb1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_back.png')
     end
     if love.keyboard.isDown("down", "s") and player.y < bot_y then 
         player.y = player.y + player.speed 
-        player.img = love.graphics.newImage('assets/character/cf1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
     end 
     
    -- if player.x > house1.x and player.y > 400 then

@@ -22,15 +22,12 @@ function enteredStatelvl3()
         img = nil
     }
     
-    player.img = love.graphics.newImage('assets/character/cf1.png')
-    grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
-    buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
-    clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
-    vines = love.graphics.newImage('assets/tiles/vines.png')
-    mask = love.graphics.newImage('assets/tiles/mask.png')
-    note1img = love.graphics.newImage('assets/interactable/fillernote.png')
-    note1imgdown = love.graphics.newImage('assets/interactable/fillernoteDOWN.png')
-    
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
+    grass_tile = love.graphics.newImage('assets/TILE/TILE_v2_leaves.png')
+    background = love.graphics.newImage('assets/TILE/TILE_backing.png')
+    buttercup_tile = love.graphics.newImage('assets/TILE/TILE_buttercup.png')
+    clover_tile = love.graphics.newImage('assets/TILE/TILE_clover.png')
+    vines = love.graphics.newImage('assets/TILE/TILE_vines.png')
     
     love.mouse.setVisible(true)
     world = bump.newWorld()
@@ -47,19 +44,19 @@ function updatelvl3(dt)
     player.speed = 6
     if love.keyboard.isDown("right", "d") and player.x < right_x then
         player.x = player.x + player.speed 
-        player.img = love.graphics.newImage('assets/character/cr1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_right.png')
     end
     if love.keyboard.isDown("left", "a") and player.x > left_x then
         player.x = player.x - player.speed 
-        player.img = love.graphics.newImage('assets/character/cl1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_left.png')
     end
     if love.keyboard.isDown("up", "w") and player.y > top_y then
         player.y = player.y - player.speed 
-        player.img = love.graphics.newImage('assets/character/cb1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_back.png')
     end
     if love.keyboard.isDown("down", "s") and player.y < bot_y then 
         player.y = player.y + player.speed 
-        player.img = love.graphics.newImage('assets/character/cf1.png')
+        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
     end 
     
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
