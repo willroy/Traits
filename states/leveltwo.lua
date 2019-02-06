@@ -11,7 +11,7 @@ end
 
 function enteredStatelvl2()
     player = {
-        x = 460,
+        x = 600,
         y = 460,
         w = 92,
         h = 156,
@@ -32,19 +32,34 @@ function enteredStatelvl2()
         img_body = nil,
         img_roof = nil
     }
-    cave = {
-        x = 500,
-        y = 0,
-        w = 300,
-        h = 300,
-        c_w = 2000,
-        c_h = 160,
-        img = nil
-    }
     
     button1 = {
-        x = 700, 
-        y = 800, 
+        x = 200, 
+        y = 400, 
+        delay = 300, 
+        pressed = false, 
+        count = 0,
+        id = 4
+    } 
+    button2 = {
+        x = 400, 
+        y = 400, 
+        delay = 300, 
+        pressed = false, 
+        count = 0,
+        id = 3 
+    } 
+    button3 = {
+        x = 200, 
+        y = 600, 
+        delay = 300, 
+        pressed = false, 
+        count = 0,
+        id = 2
+    } 
+    button4 = {
+        x = 400, 
+        y = 600, 
         delay = 300, 
         pressed = false, 
         count = 0,
@@ -54,7 +69,6 @@ function enteredStatelvl2()
     order = {}
     
     player.img = love.graphics.newImage('assets/character/cf1.png')
-    cave.img = love.graphics.newImage('assets/tiles/cave.png')
     grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
     background = love.graphics.newImage('assets/tiles/backing.png')
     buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
@@ -73,7 +87,7 @@ function enteredStatelvl2()
     top_y = 0
     bot_y = 960
     
-    world:add(cave.img, cave.x-900, cave.y, cave.c_w, cave.c_h)
+    house1.c_h = house1.c_h - player.h
     world:add(house1.img_body, house1.x, house1.y+house1.r_h, house1.c_w, house1.c_h)
     world:add(player, player.x, player.y, player.w, player.h)
 end
@@ -98,11 +112,13 @@ function updatelvl2(dt)
         player.img = love.graphics.newImage('assets/character/cf1.png')
     end 
     
-    if player.x > cave.x+100 and player.x < cave.x+200 and player.y == 160 then
+   -- if player.x > house1.x and player.y > 400 then
         if open == true then
+          print(open)
+          love.graphics.clear( )
             return "levelthree"
         end
-    end
+    --end
     
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
     return "leveltwo"
@@ -135,8 +151,13 @@ function drawlvl2(dt)
     end
 
     drawbutton(button1)
+    drawbutton(button2)
+    drawbutton(button3)
+    drawbutton(button4)
     
+    love.graphics.draw(house1.img_body, house1.x, house1.y+house1.r_h)
     love.graphics.draw(player.img, player.x, player.y)
+    love.graphics.draw(house1.img_roof, house1.x, house1.y)
     
     for i=1, #blocks do
         local b = blocks[i]
@@ -170,6 +191,3 @@ function drawbutton(b)
     end
 end
 
---function clear
---    
---end

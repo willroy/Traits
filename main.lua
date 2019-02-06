@@ -12,21 +12,18 @@ function love.update(dt)
   if state == "menu" then
     state = updatemenu()
     if state == "levelone" then
-      print("levelone")
       enteredStatelvl1()
     end
   end
   if state == "levelone" then
     state = updatelvl1(dt)
     if state == "leveltwo" then
-      print("leveltwo")
       enteredStatelvl2()
     end
   end
   if state == "leveltwo" then
     state = updatelvl2(dt)
     if state == "levelthree" then
-      print("levelthree")
       enteredStatelvl3()
     end
   end
@@ -37,7 +34,6 @@ end
 
 function love.draw()
   if state == "menu" then
-    print("drawing menu")
     drawmenu()
   end
   if state == "levelone" then

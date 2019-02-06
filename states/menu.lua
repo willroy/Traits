@@ -23,11 +23,3 @@ function drawmenu(dt)
     love.graphics.rectangle('fill', 300, 300, 200, 100)
 end
 
-function keypressedmenu(key)
-    if key == "escape" then
-        love.event.push("quit")
-    end
-    if key == "x" then
-        print(love.mouse.getPosition())
-    end
-end

@@ -110,6 +110,7 @@ function updatelvl1(dt)
     
     if player.x > cave.x+100 and player.x < cave.x+200 and player.y == 160 then
         if open == true then
+            open = false
             return "leveltwo"
         end
     end
@@ -149,6 +150,11 @@ function drawlvl1(dt)
     button(button3)
     button(button4)
     
+    if order[1] == nil or order[2] == nil or order[3] == nil or order[4] == nil then
+    else
+      print(string.format("%d,%d,%d,%d", order[1], order[2], order[3], order[4]))
+    end
+
     if open == true then
         cave.img = love.graphics.newImage('assets/tiles/caveopen.png')
     end

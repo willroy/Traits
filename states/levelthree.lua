@@ -21,38 +21,16 @@ function enteredStatelvl3()
         acc = 1,
         img = nil
     }
---    house1 = {
---        x = 703,
---        y = 240,
---        w = 294,
---        h = 248,
---        c_w = 300,
---        c_h = 248,
---        r_h = 72,
---        img_body = nil,
---        img_roof = nil
---        }
---    note1 = {
---        x = 10, 
---        y = 500, 
---        delay = 100, 
---        pressed = false, 
---        count = 0,
---        id = 1
---    } 
     
     player.img = love.graphics.newImage('assets/character/cf1.png')
     grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
     buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
     clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
-    --house1.img_body = love.graphics.newImage('assets/houses/house1/h1body.png')
-    --house1.img_roof = love.graphics.newImage('assets/houses/house1/h1roof.png')
     vines = love.graphics.newImage('assets/tiles/vines.png')
     mask = love.graphics.newImage('assets/tiles/mask.png')
     note1img = love.graphics.newImage('assets/interactable/fillernote.png')
     note1imgdown = love.graphics.newImage('assets/interactable/fillernoteDOWN.png')
     
-    --house1.c_h = house1.c_h - (player.h) 
     
     love.mouse.setVisible(true)
     world = bump.newWorld()
@@ -61,8 +39,6 @@ function enteredStatelvl3()
     top_y = 0
     bot_y = 960
     
-    --world:add(house1.img_body, house1.x, house1.y+house1.r_h, house1.c_w, house1.c_h)
-    --world:add(vines, 0, 0, 10000, 300-player.h)
     world:add(player, player.x, player.y, player.w, player.h)
 end
 
@@ -87,7 +63,7 @@ function updatelvl3(dt)
     end 
     
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
-    return "leveltwo"
+    return "levelthree"
 end
 
 function drawlvl3(dt)
@@ -115,7 +91,7 @@ function drawlvl3(dt)
         vinesx = vinesx + 300
     end 
 
-   -- notepress(note1)
+
 
     love.graphics.draw(house1.img_body, house1.x, house1.y+house1.r_h)
     love.graphics.draw(player.img, player.x, player.y)
@@ -124,44 +100,5 @@ function drawlvl3(dt)
         local b = blocks[i]
         love.graphics.draw(blockimg, b.x, b.y)
     end
---    maskx = 0
---    masky = 0
---    for a=1000,0,-1 do
---        love.graphics.draw(mask, maskx, masky)
---        maskx = maskx + 300
---        if maskx == 1500 then
---            masky = masky + 300
---        end
---    end 
 end
 
---function notepress(n)
---    if n.count == n.delay then
---        n.pressed = false 
---    end
---    if n.pressed == true then
---        n.count = n.count + 1
---        love.graphics.draw(note1imgdown, n.x, n.y)
---    end
---    if player.x > n.x-23 and player.x < (n.x+100)-23 and (player.y+player.h) > n.y and (player.y+player.h) < n.y+100 then
---        n.pressed = true
---        n.count = 0
---        love.graphics.draw(note1img, n.x, n.y) 
---    elseif n.pressed == true then
---        n.count = n.count + 1
---        love.graphics.draw(note1img, n.x, n.y)
---    else
---        n.count = 0
---        love.graphics.draw(note1img, n.x, n.y)
---    end
---end
-
-function keypressedlvl3(key)
-    if key == "escape" then
-        love.event.push("quit")
-    end
-    if key == "x" then
-        print("x: "..player.x)
-        print("y: "..player.y)
-    end
-end
