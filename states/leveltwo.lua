@@ -1,5 +1,4 @@
 local bump = require 'lib/bump'
-
 local world
 local player
 local blocks = {}
@@ -21,6 +20,7 @@ function enteredStatelvl2()
         acc = 1,
         img = nil
     }
+    
     house1 = {
         x = 703,
         y = 240,
@@ -32,17 +32,39 @@ function enteredStatelvl2()
         img_body = nil,
         img_roof = nil
     }
+    cave = {
+        x = 500,
+        y = 0,
+        w = 300,
+        h = 300,
+        c_w = 2000,
+        c_h = 160,
+        img = nil
+    }
+    
+    button1 = {
+        x = 700, 
+        y = 800, 
+        delay = 300, 
+        pressed = false, 
+        count = 0,
+        id = 1
+    } 
+    
+    order = {}
     
     player.img = love.graphics.newImage('assets/character/cf1.png')
+    cave.img = love.graphics.newImage('assets/tiles/cave.png')
     grass_tile = love.graphics.newImage('assets/tiles/tile1new.png')
+    background = love.graphics.newImage('assets/tiles/backing.png')
     buttercup_tile = love.graphics.newImage('assets/tiles/buttercuptile.png')
     clover_tile = love.graphics.newImage('assets/tiles/clovertile.png')
+    button_up = love.graphics.newImage('assets/interactable/buttonup.png')
+    button_down = love.graphics.newImage('assets/interactable/buttondown.png')
     house1.img_body = love.graphics.newImage('assets/houses/house1/h1body.png')
     house1.img_roof = love.graphics.newImage('assets/houses/house1/h1roof.png')
-    vines = love.graphics.newImage('assets/tiles/vines.png')
-    mask = love.graphics.newImage('assets/tiles/mask.png')
     
-    house1.c_h = house1.c_h - (player.h) 
+    count = 0
     
     love.mouse.setVisible(true)
     world = bump.newWorld()
@@ -51,8 +73,8 @@ function enteredStatelvl2()
     top_y = 0
     bot_y = 960
     
+    world:add(cave.img, cave.x-900, cave.y, cave.c_w, cave.c_h)
     world:add(house1.img_body, house1.x, house1.y+house1.r_h, house1.c_w, house1.c_h)
-    world:add(vines, 0, 0, 10000, 300-player.h)
     world:add(player, player.x, player.y, player.w, player.h)
 end
 
@@ -76,16 +98,19 @@ function updatelvl2(dt)
         player.img = love.graphics.newImage('assets/character/cf1.png')
     end 
     
+    if player.x > cave.x+100 and player.x < cave.x+200 and player.y == 160 then
+        if open == true then
+            return "levelthree"
+        end
+    end
+    
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
     return "leveltwo"
 end
 
 function drawlvl2(dt)
-    for a=13,0,-1 do
-        love.graphics.draw(vines, tile_x, tile_y)
-    end 
     tile_x = 0
-    tile_y = 300 
+    tile_y = 300
     for i=138,0,-1 do
         if math.mod(i,9) == 0 or math.mod(i,4) == 0 then
             love.graphics.draw(grass_tile, tile_x, tile_y)
@@ -98,36 +123,53 @@ function drawlvl2(dt)
             tile_x = 0
         end
     end 
-    vinesx = 0
-    vinesy = 0 
-    for a=13,0,-1 do
-        love.graphics.draw(vines, vinesx, vinesy)
-        vinesx = vinesx + 300
-    end 
-    love.graphics.draw(house1.img_body, house1.x, house1.y+house1.r_h)
+    
+    if order[1] == 1 then
+        if order[2] == 4 then
+            if order[3] == 3 then
+                if order[4] == 2 then
+                    open = true
+                end
+            end
+        end
+    end
+
+    drawbutton(button1)
+    
     love.graphics.draw(player.img, player.x, player.y)
-    love.graphics.draw(house1.img_roof, house1.x, house1.y)
+    
     for i=1, #blocks do
         local b = blocks[i]
         love.graphics.draw(blockimg, b.x, b.y)
     end
-    maskx = 0
-    masky = 0
-    for a=1000,0,-1 do
-        love.graphics.draw(mask, maskx, masky)
-        maskx = maskx + 300
-        if maskx == 1500 then
-            masky = masky + 300
-        end
-    end 
 end
 
-function keypressedlvl2(key)
-    if key == "escape" then
-        love.event.push("quit")
+function drawbutton(b)
+    if b.count == b.delay then
+        b.pressed = false 
+        order = {}
     end
-    if key == "x" then
-        print("x: "..player.x)
-        print("y: "..player.y)
+    if b.pressed == true then
+        b.count = b.count + 1
+        love.graphics.draw(button_down, b.x, b.y)
+    end
+    if player.x > b.x-23 and player.x < (b.x+100)-23 and (player.y+player.h) > b.y and (player.y+player.h) < b.y+100 then
+        b.pressed = true
+        if order[#order] == b.id then
+        else
+            order[#order+1] = b.id
+        end
+        b.count = 0
+        love.graphics.draw(button_down, b.x, b.y) 
+    elseif b.pressed == true then
+        b.count = b.count + 1
+        love.graphics.draw(button_down, b.x, b.y)
+    else
+        b.count = 0
+        love.graphics.draw(button_up, b.x, b.y)
     end
 end
+
+--function clear
+--    
+--end

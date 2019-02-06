@@ -10,7 +10,6 @@ local function addBlock(x, y)
 end
 
 function enteredStatelvl1()
-    print("init")
     player = {
         x = 460,
         y = 460,
@@ -120,7 +119,6 @@ function updatelvl1(dt)
 end
 
 function drawlvl1(dt)
-    print("draw")
     tile_x = 0
     tile_y = 300
     for i=138,0,-1 do
@@ -145,7 +143,7 @@ function drawlvl1(dt)
             end
         end
     end
-    
+
     button(button1)
     button(button2)
     button(button3)
@@ -194,6 +192,6 @@ function button(b)
     end
 end
 
-function clear
-    
-end
+--function clear
+--    
+--end
