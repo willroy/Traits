@@ -93,35 +93,35 @@ function enteredStatelvl2()
 end
 
 function updatelvl2(dt)
-    local future_x, future_y = player.x, player.y
-    player.speed = 6
-    if love.keyboard.isDown("right", "d") and player.x < right_x then
-        player.x = player.x + player.speed 
-        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_right.png')
+  local future_x, future_y = player.x, player.y
+  player.speed = 6
+  if love.keyboard.isDown("right", "d") and player.x < right_x then
+    player.x = player.x + player.speed 
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_right.png')
+  end
+  if love.keyboard.isDown("left", "a") and player.x > left_x then
+    player.x = player.x - player.speed 
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_left.png')
+  end
+  if love.keyboard.isDown("up", "w") and player.y > top_y then
+    player.y = player.y - player.speed 
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_back.png')
+  end
+  if love.keyboard.isDown("down", "s") and player.y < bot_y then 
+    player.y = player.y + player.speed 
+    player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
+  end 
+
+  if player.x > house1.x and player.x < house1.x + house1.w and player.y > 400 and player.y < 410 then
+    if open == true then
+      print(open)
+      love.graphics.clear( )
+      return "levelthree"
     end
-    if love.keyboard.isDown("left", "a") and player.x > left_x then
-        player.x = player.x - player.speed 
-        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_left.png')
-    end
-    if love.keyboard.isDown("up", "w") and player.y > top_y then
-        player.y = player.y - player.speed 
-        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_back.png')
-    end
-    if love.keyboard.isDown("down", "s") and player.y < bot_y then 
-        player.y = player.y + player.speed 
-        player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
-    end 
-    
-   -- if player.x > house1.x and player.y > 400 then
-        if open == true then
-          print(open)
-          love.graphics.clear( )
-            return "levelthree"
-        end
-    --end
-    
-    local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
-    return "leveltwo"
+  end
+
+  local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
+  return "leveltwo"
 end
 
 function drawlvl2(dt)

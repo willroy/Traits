@@ -192,7 +192,3 @@ function button(b)
         love.graphics.draw(button_up, b.x, b.y)
     end
 end
-
---function clear
---    
---end

@@ -1,3 +1,7 @@
+function enteredStatemenu()
+    start = love.graphics.newImage('assets/BUTTON/BUTTON_start.png')
+end
+
 function updatemenu(dt)
     x, y = love.mouse.getPosition()
     local hover = false
@@ -20,6 +24,6 @@ function updatemenu(dt)
 end
 
 function drawmenu(dt)
-    love.graphics.rectangle('fill', 300, 300, 200, 100)
+    love.graphics.draw(start, 300, 300)
 end
 
