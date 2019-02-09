@@ -27,7 +27,8 @@ function enteredStatelvl3()
       w = 100,
       h = 100,
       yes = "up",
-      img = nil
+      img = nil,
+      correct = false
     }
     block2 = {
       x = 200,
@@ -35,7 +36,8 @@ function enteredStatelvl3()
       w = 100,
       h = 100,
       yes = "down",
-      img = nil
+      img = nil,
+      correct = false
     }
     
     player.speed = 6
@@ -49,6 +51,7 @@ function enteredStatelvl3()
     boulder = love.graphics.newImage('assets/TILE/TILE_boulder.png')
     block1.img = love.graphics.newImage('assets/TILE/TILE_boulder.png')
     block2.img = love.graphics.newImage('assets/TILE/TILE_boulder.png')
+    path = love.graphics.newImage('assets/TILE/TILE_path.png')
     
     love.mouse.setVisible(true)
     world = bump.newWorld()
@@ -110,6 +113,7 @@ function block_move(blk)
   print(blk.y)
   if (blk.y == 702 and blk.yes == "down") or (blk.y == 498 and blk.yes == "up") then
       blk.img = love.graphics.newImage('assets/TILE/TILE_boulderyes.png')
+      blk.correct = true
   else
     blk.img = love.graphics.newImage('assets/TILE/TILE_boulder.png')
   end
@@ -137,6 +141,9 @@ function drawlvl3(dt)
         vinesx = vinesx + 300
     end 
 
+    love.graphics.draw(path, 1000, 500)
+    love.graphics.draw(path, 200, 500)
+
     love.graphics.draw(block1.img, block1.x, block1.y)
     love.graphics.draw(block2.img, block2.x, block2.y)
 
@@ -148,4 +155,3 @@ function drawlvl3(dt)
         love.graphics.draw(blockimg, b.x, b.y)
     end
 end
-
