@@ -22,8 +22,8 @@ function enteredStatelvl3()
         img = nil
     }
     block1 = {
-      x = 600,
-      y = 600,
+      x = 1000,
+      y = 700,
       w = 100,
       h = 100,
     }
@@ -73,11 +73,24 @@ function updatelvl3(dt)
 end
 
 function block_move(blk)
-  if (player.y-player.h) == (blk.y+blk.h) then
-    print("okay then thats good")
-    if love.keyboard.isDown("up", "w") then
-      print("movement!!")
-      blk.y = blk.y - player.speed
+  print(player.y)
+  print(blk.y+blk.h)
+  if player.y+(player.h/2) > (blk.y+blk.h) and player.y+(player.h/2) < (blk.y+blk.h)+20 then
+    if player.x > blk.x-20 and player.x < blk.x+blk.w then
+      print("okay then thats good")
+      if love.keyboard.isDown("up", "w") then
+        print("movement!!")
+        blk.y = blk.y - player.speed
+      end
+    end
+  end
+  if player.y+player.h > blk.y-20 and player.y+player.h < blk.y then
+    if player.x > blk.x-20 and player.x < blk.x+blk.w then
+      print("okay then thats good")
+      if love.keyboard.isDown("down", "s") then
+        print("movement!!")
+        blk.y = blk.y + player.speed
+      end
     end
   end
 end

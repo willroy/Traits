@@ -24,6 +24,7 @@ function love.update(dt)
   end
   if state == "leveltwo" then
     state = updatelvl2(dt)
+    state = "levelthree"
     if state == "levelthree" then
       enteredStatelvl3()
     end
