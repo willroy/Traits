@@ -21,6 +21,12 @@ function enteredStatelvl3()
         acc = 1,
         img = nil
     }
+    block1 = {
+      x = 600,
+      y = 600,
+      w = 100,
+      h = 100,
+    }
     
     player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
     grass_tile = love.graphics.newImage('assets/TILE/TILE_v2_leaves.png')
@@ -28,6 +34,7 @@ function enteredStatelvl3()
     buttercup_tile = love.graphics.newImage('assets/TILE/TILE_buttercup.png')
     clover_tile = love.graphics.newImage('assets/TILE/TILE_clover.png')
     vines = love.graphics.newImage('assets/TILE/TILE_vines.png')
+    stone_tile = love.graphics.newImage('assets/TILE/TILE_stone.png')
     
     love.mouse.setVisible(true)
     world = bump.newWorld()
@@ -59,14 +66,23 @@ function updatelvl3(dt)
         player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
     end 
     
+    block_move(block1)
+    
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
     return "levelthree"
 end
 
+function block_move(blk)
+  if (player.y-player.h) == (blk.y+blk.h) then
+    print("okay then thats good")
+    if love.keyboard.isDown("up", "w") then
+      print("movement!!")
+      blk.y = blk.y - player.speed
+    end
+  end
+end
+
 function drawlvl3(dt)
-    for a=13,0,-1 do
-        love.graphics.draw(vines, tile_x, tile_y)
-    end 
     tile_x = 0
     tile_y = 300 
     for i=138,0,-1 do
@@ -88,7 +104,7 @@ function drawlvl3(dt)
         vinesx = vinesx + 300
     end 
 
-
+    love.graphics.draw(stone_tile, block1.x, block1.y)
 
     love.graphics.draw(house1.img_body, house1.x, house1.y+house1.r_h)
     love.graphics.draw(player.img, player.x, player.y)

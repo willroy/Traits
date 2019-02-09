@@ -5,8 +5,8 @@ require 'states/levelthree'
 
 function love.load()
   love.window.setMode(1300, 1000)
-  enteredStatemenu()
-  state = "menu"
+  enteredStatelvl2()
+  state = "leveltwo"
 end
 
 function love.update(dt)

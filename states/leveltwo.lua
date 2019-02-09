@@ -20,9 +20,8 @@ function enteredStatelvl2()
         acc = 1,
         img = nil
     }
-    
     house1 = {
-        x = 703,
+        x = 500,
         y = 240,
         w = 294,
         h = 248,
@@ -32,52 +31,52 @@ function enteredStatelvl2()
         img_body = nil,
         img_roof = nil
     }
-    
     button1 = {
         x = 200, 
-        y = 400, 
-        delay = 300, 
+        y = 500, 
+        delay = 700, 
         pressed = false, 
         count = 0,
-        id = 4
+        id = 1 
     } 
     button2 = {
         x = 400, 
-        y = 400, 
-        delay = 300, 
+        y = 600, 
+        delay = 700, 
         pressed = false, 
         count = 0,
-        id = 3 
+        id = 2 
     } 
     button3 = {
-        x = 200, 
+        x = 800, 
         y = 600, 
-        delay = 300, 
+        delay = 700, 
         pressed = false, 
         count = 0,
-        id = 2
+        id = 3
     } 
     button4 = {
-        x = 400, 
-        y = 600, 
-        delay = 300, 
+        x = 1000, 
+        y = 500, 
+        delay = 700, 
         pressed = false, 
         count = 0,
-        id = 1
+        id = 4
     } 
     
     order = {}
     
     player.img = love.graphics.newImage('assets/PLAYER/PLAYER_v2_front.png')
-    grass_tile = love.graphics.newImage('assets/TILE/TILE_v2_leaves.png')
+    stone_tile = love.graphics.newImage('assets/TILE/TILE_stone.png')
     background = love.graphics.newImage('assets/TILE/TILE_backing.png')
     buttercup_tile = love.graphics.newImage('assets/TILE/TILE_buttercup.png')
-    clover_tile = love.graphics.newImage('assets/TILE/TILE_clover.png')
+    stone2_tile = love.graphics.newImage('assets/TILE/TILE_stone2.png')
     button_up = love.graphics.newImage('assets/BUTTON/BUTTON_generalup.png')
     button_down = love.graphics.newImage('assets/BUTTON/BUTTON_generaldown.png')
     house1.img_body = love.graphics.newImage('assets/ENTRY/ENTRY_house1_body.png')
     house1.img_roof = love.graphics.newImage('assets/ENTRY/ENTRY_house1_roof.png')
-    
+    vines = love.graphics.newImage('assets/TILE/TILE_vines.png')
+
     count = 0
     
     love.mouse.setVisible(true)
@@ -120,6 +119,10 @@ function updatelvl2(dt)
     end
   end
 
+  if player.y < 300-player.h then
+    player.y = player.y + player.speed    
+  end
+
   local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
   return "leveltwo"
 end
@@ -129,9 +132,9 @@ function drawlvl2(dt)
     tile_y = 300
     for i=138,0,-1 do
         if math.mod(i,9) == 0 or math.mod(i,4) == 0 then
-            love.graphics.draw(grass_tile, tile_x, tile_y)
+            love.graphics.draw(stone_tile, tile_x, tile_y)
         else
-            love.graphics.draw(clover_tile, tile_x, tile_y)
+            love.graphics.draw(stone2_tile, tile_x, tile_y)
         end
         tile_x = tile_x + 100
         if tile_x > 1300 then
@@ -154,7 +157,14 @@ function drawlvl2(dt)
     drawbutton(button2)
     drawbutton(button3)
     drawbutton(button4)
-    
+
+    vinesx = 0
+    vinesy = 0 
+    for a=13,0,-1 do
+        love.graphics.draw(vines, vinesx, vinesy)
+        vinesx = vinesx + 300
+    end 
+
     love.graphics.draw(house1.img_body, house1.x, house1.y+house1.r_h)
     love.graphics.draw(player.img, player.x, player.y)
     love.graphics.draw(house1.img_roof, house1.x, house1.y)
