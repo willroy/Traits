@@ -147,7 +147,8 @@ function drawlvl2(dt)
         if order[2] == 4 then
             if order[3] == 3 then
                 if order[4] == 2 then
-                    open = true
+                  house1.img_body = love.graphics.newImage('assets/ENTRY/ENTRY_house1_bodyopen.png')
+                  open = true
                 end
             end
         end

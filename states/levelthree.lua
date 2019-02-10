@@ -84,7 +84,7 @@ function updatelvl3(dt)
     player.speed = 6 
     block_move(block1)
     block_move(block2)
-    
+
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
     return "levelthree"
 end
@@ -147,9 +147,7 @@ function drawlvl3(dt)
     love.graphics.draw(block1.img, block1.x, block1.y)
     love.graphics.draw(block2.img, block2.x, block2.y)
 
-    love.graphics.draw(house1.img_body, house1.x, house1.y+house1.r_h)
     love.graphics.draw(player.img, player.x, player.y)
-    love.graphics.draw(house1.img_roof, house1.x, house1.y)
     for i=1, #blocks do
         local b = blocks[i]
         love.graphics.draw(blockimg, b.x, b.y)

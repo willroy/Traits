@@ -5,8 +5,8 @@ require 'states/levelthree'
 
 function love.load()
   love.window.setMode(1300, 1000)
-  enteredStatelvl2()
-  state = "leveltwo"
+  enteredStatelvl1()
+  state = "levelone"
 end
 
 function love.update(dt)
@@ -24,7 +24,6 @@ function love.update(dt)
   end
   if state == "leveltwo" then
     state = updatelvl2(dt)
-    state = "levelthree"
     if state == "levelthree" then
       enteredStatelvl3()
     end
