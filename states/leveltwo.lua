@@ -34,34 +34,51 @@ function enteredStatelvl2()
     button1 = {
         x = 200, 
         y = 500, 
-        delay = 700, 
+        delay = 7000, 
         pressed = false, 
         count = 0,
-        id = 1 
+        id = 1,
+        img = nil,
+        note = love.audio.newSource("assets/AUDIO/Piano1.wav", "static")
     } 
     button2 = {
         x = 400, 
         y = 600, 
-        delay = 700, 
+        delay = 7000, 
         pressed = false, 
         count = 0,
-        id = 2 
+        id = 2,
+        img = nil,
+        note = love.audio.newSource("assets/AUDIO/Piano4.wav", "static")
     } 
     button3 = {
         x = 800, 
         y = 600, 
-        delay = 700, 
+        delay = 7000, 
         pressed = false, 
         count = 0,
-        id = 3
+        id = 3,
+        img = nil,
+        note = love.audio.newSource("assets/AUDIO/Piano3.wav", "static")
     } 
     button4 = {
         x = 1000, 
         y = 500, 
-        delay = 700, 
+        delay = 7000, 
         pressed = false, 
         count = 0,
-        id = 4
+        id = 4,
+        img = nil,
+        note = love.audio.newSource("assets/AUDIO/Piano2.wav", "static")
+    } 
+    resetbutton = {
+        x = 100, 
+        y = 800, 
+        delay = 100, 
+        pressed = false, 
+        count = 0,
+        id = 5,
+        img = nil
     } 
     
     order = {}
@@ -73,9 +90,21 @@ function enteredStatelvl2()
     stone2_tile = love.graphics.newImage('assets/TILE/TILE_stone2.png')
     button_up = love.graphics.newImage('assets/BUTTON/BUTTON_generalup.png')
     button_down = love.graphics.newImage('assets/BUTTON/BUTTON_generaldown.png')
+    button_up_reset = love.graphics.newImage('assets/BUTTON/BUTTON_generalupreset.png')
+    button_down_reset = love.graphics.newImage('assets/BUTTON/BUTTON_generaldownreset.png')
     house1.img_body = love.graphics.newImage('assets/ENTRY/ENTRY_house1_body.png')
     house1.img_roof = love.graphics.newImage('assets/ENTRY/ENTRY_house1_roof.png')
     vines = love.graphics.newImage('assets/TILE/TILE_vines.png')
+    piano1 = love.audio.newSource("assets/AUDIO/Piano1.wav", "static")
+    piano2 = love.audio.newSource("assets/AUDIO/Piano2.wav", "static")
+    piano3 = love.audio.newSource("assets/AUDIO/Piano3.wav", "static")
+    piano4 = love.audio.newSource("assets/AUDIO/Piano4.wav", "static")
+
+    button1.img = button_up
+    button2.img = button_up
+    button3.img = button_up
+    button4.img = button_up
+    resetbutton.img = button_up
 
     count = 0
     
@@ -158,6 +187,7 @@ function drawlvl2(dt)
     drawbutton(button2)
     drawbutton(button3)
     drawbutton(button4)
+    drawbuttonreset(resetbutton)
 
     vinesx = 0
     vinesy = 0 
@@ -176,14 +206,44 @@ function drawlvl2(dt)
     end
 end
 
+function drawbuttonreset(rb)
+    if rb.count == rb.delay then
+        rb.img = button_up_reset
+        rb.pressed = false 
+        order = {}
+    end
+    if rb.pressed == true then
+        button1.count = 6950
+        button2.count = 6950
+        button3.count = 6950
+        button4.count = 6950
+        rb.count = rb.count + 1
+        love.graphics.draw(rb.img, rb.x, rb.y)
+    end
+    if player.x > rb.x-23 and player.x < (rb.x+100)-23 and (player.y+player.h) > rb.y and (player.y+player.h) < rb.y+100 then
+        rb.pressed = true
+        rb.count = 0
+        rb.img = button_down_reset
+        love.graphics.draw(rb.img, rb.x, rb.y) 
+    elseif rb.pressed == true then
+        rb.count = rb.count + 1
+        love.graphics.draw(rb.img, rb.x, rb.y)
+    else
+        rb.count = 0
+        love.graphics.draw(rb.img, rb.x, rb.y)
+    end
+end
+
 function drawbutton(b)
     if b.count == b.delay then
+        b.img = button_up
         b.pressed = false 
         order = {}
     end
     if b.pressed == true then
+        b.note:play()
         b.count = b.count + 1
-        love.graphics.draw(button_down, b.x, b.y)
+        love.graphics.draw(b.img, b.x, b.y)
     end
     if player.x > b.x-23 and player.x < (b.x+100)-23 and (player.y+player.h) > b.y and (player.y+player.h) < b.y+100 then
         b.pressed = true
@@ -192,13 +252,14 @@ function drawbutton(b)
             order[#order+1] = b.id
         end
         b.count = 0
-        love.graphics.draw(button_down, b.x, b.y) 
+        b.img = button_down
+        love.graphics.draw(b.img, b.x, b.y) 
     elseif b.pressed == true then
         b.count = b.count + 1
-        love.graphics.draw(button_down, b.x, b.y)
+        love.graphics.draw(b.img, b.x, b.y)
     else
         b.count = 0
-        love.graphics.draw(button_up, b.x, b.y)
+        love.graphics.draw(b.img, b.x, b.y)
     end
 end
 
