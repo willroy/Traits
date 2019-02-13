@@ -30,6 +30,9 @@ function love.update(dt)
   end
   if state == "levelthree" then
     state = updatelvl3(dt)
+    if state == "results" then
+      enteredStateresults()
+    end
   end
 end
 
@@ -45,6 +48,9 @@ function love.draw()
   end
   if state == "levelthree" then
     drawlvl3(dt)
+  end
+  if state == "results" then
+    drawresults(dt)
   end
 end
 
