@@ -2,11 +2,12 @@ require 'states/menu'
 require 'states/levelone'
 require 'states/leveltwo'
 require 'states/levelthree'
+require 'states/results'
 
 function love.load()
   love.window.setMode(1300, 1000)
-  enteredStatelvl2()
-  state = "leveltwo"
+  enteredStatemenu()
+  state = "menu"
 end
 
 function love.update(dt)

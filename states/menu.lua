@@ -1,5 +1,6 @@
 function enteredStatemenu()
     start = love.graphics.newImage('assets/BUTTON/BUTTON_start.png')
+    love.graphics.setBackgroundColor(100,100,100)
 end
 
 function updatemenu(dt)

@@ -39,6 +39,13 @@ function enteredStatelvl3()
       img = nil,
       correct = false
     }
+    door = {
+        x = 500,
+        y = 0,
+        w = 100,
+        h = 155,
+        img = nil
+    }
     
     player.speed = 6
 
@@ -52,6 +59,7 @@ function enteredStatelvl3()
     block1.img = love.graphics.newImage('assets/TILE/TILE_boulder.png')
     block2.img = love.graphics.newImage('assets/TILE/TILE_boulder.png')
     path = love.graphics.newImage('assets/TILE/TILE_path.png')
+    door.img = love.graphics.newImage('assets/ENTRY/ENTRY_finaldoor_closed.png')
     
     love.mouse.setVisible(true)
     world = bump.newWorld()
@@ -84,6 +92,15 @@ function updatelvl3(dt)
     player.speed = 6 
     block_move(block1)
     block_move(block2)
+    if block1.correct == true and block2.correct == true then
+      open = true
+    end
+    if player.x > door.x and player.x < door.x+100 and player.y < 160 then
+        if open == true then
+            open = false
+            return "results"
+        end
+    end
 
     local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
     return "levelthree"
@@ -110,7 +127,6 @@ function block_move(blk)
       end
     end
   end
-  print(blk.y)
   if (blk.y == 702 and blk.yes == "down") or (blk.y == 498 and blk.yes == "up") then
       blk.img = love.graphics.newImage('assets/TILE/TILE_boulderyes.png')
       blk.correct = true
@@ -140,6 +156,11 @@ function drawlvl3(dt)
         love.graphics.draw(vines, vinesx, vinesy)
         vinesx = vinesx + 300
     end 
+    if open == true then
+        door.img = love.graphics.newImage('assets/ENTRY/ENTRY_finaldoor_open.png')
+    end
+    
+    love.graphics.draw(door.img, door.x, door.y)
 
     love.graphics.draw(path, 1000, 500)
     love.graphics.draw(path, 200, 500)
