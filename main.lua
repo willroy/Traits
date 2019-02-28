@@ -8,6 +8,9 @@ function love.load()
   love.window.setMode(1300, 1000)
   enteredStatemenu()
   state = "menu"
+  countlvl1 = 0
+  countlvl2 = 0
+  countlvl3 = 0
 end
 
 function love.update(dt)
@@ -18,19 +21,19 @@ function love.update(dt)
     end
   end
   if state == "levelone" then
-    state = updatelvl1(dt)
+    state, countlvl1 = updatelvl1(dt)
     if state == "leveltwo" then
       enteredStatelvl2()
     end
   end
   if state == "leveltwo" then
-    state = updatelvl2(dt)
+    state, countlvl2 = updatelvl2(dt)
     if state == "levelthree" then
       enteredStatelvl3()
     end
   end
   if state == "levelthree" then
-    state = updatelvl3(dt)
+    state, countlvl3 = updatelvl3(dt)
     if state == "results" then
       enteredStateresults()
     end
