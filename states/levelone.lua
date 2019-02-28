@@ -85,7 +85,7 @@ function enteredStatelvl1()
 end
 
 function updatelvl1(dt)
-  countlvl1 += 1
+  countlvl1 = countlvl1 + 1
   local future_x, future_y = player.x, player.y
   player.speed = 6
   if love.keyboard.isDown("right", "d") and player.x < right_x then
