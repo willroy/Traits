@@ -69,10 +69,13 @@ function enteredStatelvl3()
   top_y = 0
   bot_y = 960
 
+  countlvl3 = 0
+
   world:add(player, player.x, player.y, player.w, player.h)
 end
 
 function updatelvl3(dt)
+  countlvl3 = countlvl3 + 1
   local future_x, future_y = player.x, player.y
   if love.keyboard.isDown("right", "d") and player.x < right_x then
     player.x = player.x + player.speed 
@@ -99,12 +102,12 @@ function updatelvl3(dt)
   if player.x > door.x and player.x < door.x+30 and player.y > 590 and player.y < 650 then
     if open == true then
       open = false
-      return "results"
+      return "results", countlvl3
     end
   end
 
   local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
-  return "levelthree"
+  return "levelthree", countlvl3
 end
 
 function block_move(blk)

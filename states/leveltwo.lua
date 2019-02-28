@@ -107,6 +107,7 @@ function enteredStatelvl2()
   resetbutton.img = button_up_reset
 
   count = 0
+  countlvl2 = 0
 
   love.mouse.setVisible(true)
   world = bump.newWorld()
@@ -121,6 +122,7 @@ function enteredStatelvl2()
 end
 
 function updatelvl2(dt)
+  countlvl2 = countlvl2 + 1
   local future_x, future_y = player.x, player.y
   player.speed = 6
   if love.keyboard.isDown("right", "d") and player.x < right_x then
@@ -144,7 +146,7 @@ function updatelvl2(dt)
     if open == true then
       print(open)
       love.graphics.clear( )
-      return "levelthree"
+      return "levelthree", countlvl2
     end
   end
 
@@ -153,7 +155,7 @@ function updatelvl2(dt)
   end
 
   local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
-  return "leveltwo"
+  return "leveltwo", countlvl2
 end
 
 function drawlvl2(dt)

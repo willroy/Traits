@@ -72,6 +72,7 @@ function enteredStatelvl1()
   button_down = love.graphics.newImage('assets/BUTTON/BUTTON_generaldown.png')
 
   count = 0
+  countlvl1 = 0
 
   love.mouse.setVisible(true)
   world = bump.newWorld()
@@ -108,12 +109,12 @@ function updatelvl1(dt)
   if player.x > cave.x+100 and player.x < cave.x+200 and player.y == 160 then
     if open == true then
       open = false
-      return "leveltwo"
+      return "leveltwo", countlvl1
     end
   end
 
   local newX, newY, cols, len = world:move(player, player.x, player.y) player.x, player.y = newX, newY
-  return "levelone"
+  return "levelone", countlvl1
 end
 
 function drawlvl1(dt)

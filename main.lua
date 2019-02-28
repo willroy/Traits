@@ -35,7 +35,7 @@ function love.update(dt)
   if state == "levelthree" then
     state, countlvl3 = updatelvl3(dt)
     if state == "results" then
-      enteredStateresults()
+      enteredStateresults(countlvl1, countlvl2, countlvl3)
     end
   end
 end
