@@ -14,13 +14,13 @@ end
 function drawresults(dt)
   love.graphics.setColor(255,255,255)
   if countlvl1 < countlvl2 and countlvl1 < countlvl3 then
-    love.graphics.draw(one, 530, 270)
+    love.graphics.draw(one, 530, 275)
   end
   if countlvl2 < countlvl1 and countlvl2 < countlvl3 then
-    love.graphics.draw(one, 530, 470)
+    love.graphics.draw(one, 530, 475)
   end
   if countlvl3 < countlvl2 and countlvl3 < countlvl1 then
-    love.graphics.draw(one, 530, 670)
+    love.graphics.draw(one, 530, 675)
   end
   love.graphics.draw(results, 650, 100)
   love.graphics.draw(vis, 650, 300)
