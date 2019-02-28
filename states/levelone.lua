@@ -1,15 +1,11 @@
+--Import the collision libary bump
 local bump = require 'lib/bump'
+--create a world for collision to take place
 local world
+--initilise the player dictionary
 local player
-local blocks = {}
 
-local function addBlock(x, y)
-    local block = {x=x,y=y}
-    blocks[#blocks + 1] = block
-    world:add(block,x,y,153,40)
-end
-
-function enteredStatelvl1()
+function enteredStatelvl1()  
     player = {
         x = 460,
         y = 460,
@@ -160,11 +156,6 @@ function drawlvl1(dt)
     love.graphics.draw(background, cave.x+300, cave.y)
     love.graphics.draw(background, cave.x+600, cave.y)
     love.graphics.draw(player.img, player.x, player.y)
-    
-    for i=1, #blocks do
-        local b = blocks[i]
-        love.graphics.draw(blockimg, b.x, b.y)
-    end
 end
 
 function button(b)
