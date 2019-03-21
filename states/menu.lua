@@ -16,6 +16,7 @@ function updatemenu(dt)
       end
     end
   end
+    io.write(tostring(love.mouse.isDown(1)))
   if hover then
     if love.mouse.isDown(1) then
       return "levelone"
@@ -25,6 +26,6 @@ function updatemenu(dt)
 end
 
 function drawmenu(dt)
-  love.graphics.draw(start, 300, 300)
+  love.graphics.draw(start, 500, 500)
 end
 
