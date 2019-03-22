@@ -1,5 +1,8 @@
+--Import the collision libary bump
 local bump = require 'lib/bump'
+--create a world for collision to take place
 local world
+--initilise the player dictionary
 local player
 local blocks = {}
 
